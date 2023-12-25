@@ -1,17 +1,20 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
+import allure
 
 
 class OrderPage(BasePage):
+
+    def __init__(self, driver):
+        super().__init__(driver)
+        self.driver = driver
+
     locator_header_order_button = (By.XPATH, './/button[@class="Button_Button__ra12g" and text() = "Заказать"]')
-    locator_page_order_button = (By.XPATH,
-                                 './/button[@class="Button_Button__ra12g Button_Middle__1CSJM" and text() = "Заказать"]')
     locator_name_field = (By.XPATH, './/input[@placeholder="* Имя"]')
     locator_surname_field = (By.XPATH, './/input[@placeholder="* Фамилия"]')
     locator_adress_field = (By.XPATH, './/input[@placeholder="* Адрес: куда привезти заказ"]')
     locator_metrostation_field = (By.XPATH, './/input[@placeholder="* Станция метро"]')
     locator_phone_field = (By.XPATH, './/input[@placeholder="* Телефон: на него позвонит курьер"]')
-    locator_next_button = (By.XPATH, './/button[text() = "Далее"]')
     locator_when_to_deliver_field = (By.XPATH, './/input[@placeholder="* Когда привезти самокат"]')
     locator_day_choice = (By.XPATH, './/div[@class="react-datepicker__day react-datepicker__day--028"]')
     locator_time_of_lease_field = (By.XPATH, './/div[@class="Dropdown-placeholder" and text() = "* Срок аренды"]')
@@ -24,68 +27,75 @@ class OrderPage(BasePage):
     locator_order_button = (By.XPATH, './/button[@class="Button_Button__ra12g Button_Middle__1CSJM" and text() = "Заказать"]')
     locator_are_you_sure_yes_button = (By.XPATH, './/button[text() = "Да"]')
     locator_show_status_button = (By.XPATH, './/button[@class="Button_Button__ra12g Button_Middle__1CSJM" and text() = "Посмотреть статус"]')
-    locator_scooter_logo = (By.XPATH, './/img[@alt="Scooter"]')
-    locator_yandex_logo = (By.XPATH, './/img[@alt="Yandex"]')
     locator_metro_station_choice = (By.XPATH, './/div[@class="select-search__select"]')
-    locator_logo_dzen = (By.XPATH, './/svg[@class="desktop-base-header__logoBrand-3W desktop-base-header__isMorda-mX"]')
-    locator_dzen_find_button = (By.XPATH, './/button[@type="submit" and text() = "Найти"]')
 
-    def click_header_order_button(self, driver):
-        return driver.find_element(*self.locator_header_order_button).click()
+    @allure.step('Заполнить поле Имя')
+    def fill_in_name_field(self, text):
+        return self.find_page(self.locator_name_field).send_keys(text)
 
-    def fill_in_name_field(self, driver, text):
-        return driver.find_element(*self.locator_name_field).send_keys(text)
+    @allure.step('Заполнить поле Фамилия')
+    def fill_in_surname_field(self, text):
+        return self.find_page(self.locator_surname_field).send_keys(text)
 
-    def fill_in_surname_field(self, driver, text):
-        return driver.find_element(*self.locator_surname_field).send_keys(text)
+    @allure.step('Заполнить поле Адрес')
+    def fill_in_adress_field(self, text):
+        return self.find_page(self.locator_adress_field).send_keys(text)
 
-    def fill_in_adress_field(self, driver, text):
-        return driver.find_element(*self.locator_adress_field).send_keys(text)
+    @allure.step('Заполнить поле Телефон')
+    def fill_in_phone_field(self, text):
+        return self.find_page(self.locator_phone_field).send_keys(text)
 
-    def fill_in_phone_field(self, driver, text):
-        return driver.find_element(*self.locator_phone_field).send_keys(text)
+    @allure.step('Заполнить поле Комментарий')
+    def fill_in_comment_field(self, text):
+        return self.find_page(self.locator_comment_field).send_keys(text)
 
-    def fill_in_comment_field(self, driver, text):
-        return driver.find_element(*self.locator_comment_field).send_keys(text)
+    @allure.step('Кликнуть по полю Станция метро')
+    def click_metro_station_field(self):
+        return self.click_page(self.locator_metrostation_field)
 
-    def click_metro_station_field(self, driver):
-        return driver.find_element(*self.locator_metrostation_field).click()
+    @allure.step('Выбрать станцию метро')
+    def choose_metro_station(self):
+        return self.click_page(self.locator_metro_station_choice)
 
-    def choose_metro_station(self, driver):
-        return driver.find_element(*self.locator_metro_station_choice).click()
+    @allure.step('Заполнить поле Станция метро')
+    def fill_in_metro_station(self, text):
+        return self.find_page(self.locator_metrostation_field).send_keys(text)
 
-    def fill_in_metro_station(self, driver, text):
-        return driver.find_element(*self.locator_metrostation_field).send_keys(text)
+    @allure.step('Кликнуть на кнопку Далее')
+    def click_next_button(self):
+        return self.click_page(self.locator_next_button)
 
-    def click_next_button(self, driver):
-        return driver.find_element(*self.locator_next_button).click()
+    @allure.step('Кликнуть на поле Когда привезти самокат')
+    def click_delivery_date_field(self):
+        return self.click_page(self.locator_when_to_deliver_field)
 
-    def click_delivery_date_field(self, driver):
-        return driver.find_element(*self.locator_when_to_deliver_field).click()
+    @allure.step('Выбрать дату')
+    def choose_delivery_date(self):
+        return self.click_page(self.locator_day_choice)
 
-    def choose_delivery_date(self, driver):
-        return driver.find_element(*self.locator_day_choice).click()
+    @allure.step('Кликнуть на поле Срок аренды')
+    def click_time_of_lease_field(self):
+        return self.click_page(self.locator_time_of_lease_field)
 
-    def click_time_of_lease_field(self, driver):
-        return driver.find_element(*self.locator_time_of_lease_field).click()
+    @allure.step('Ввбрать срок аренды: сутки')
+    def choose_time_of_lease_one_day(self):
+        return self.click_page(self.locator_time_of_lease_choice_one_day)
 
-    def choose_time_of_lease_one_day(self, driver):
-        return driver.find_element(*self.locator_time_of_lease_choice_one_day).click()
+    @allure.step('Выбрать цвет самоката')
+    def choose_scooter_color(self, *locator):
+        return self.click_page(locator)
 
-    def choose_scooter_color(self, driver, *locator):
-        return driver.find_element(*locator).click()
+    @allure.step('Кликнуть на кнопку Заказать')
+    def click_final_order_button(self):
+        return self.click_page(self.locator_order_button)
 
-    def click_final_order_button(self, driver):
-        return driver.find_element(*self.locator_order_button).click()
+    @allure.step('Кликнуть на кнопку "Вы уверены? - Да"')
+    def click_are_you_sure_yes_button(self):
+        return self.click_page(self.locator_are_you_sure_yes_button)
 
-    def click_are_you_sure_yes_button(self, driver):
-        return driver.find_element(*self.locator_are_you_sure_yes_button).click()
-
-    def click_yandex_logo(self, driver):
-        return driver.find_element(*self.locator_yandex_logo).click()
-
-    def click_scooter_logo(self, driver):
-        return driver.find_element(*self.locator_scooter_logo).click()
+    @allure.step('Найти кнопку Посмотреть статус')
+    def find_show_status_button(self):
+        return self.find_page(self.locator_show_status_button)
 
 
 
