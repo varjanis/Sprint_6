@@ -5,10 +5,6 @@ import allure
 
 class OrderPage(BasePage):
 
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
-
     locator_header_order_button = (By.XPATH, './/button[@class="Button_Button__ra12g" and text() = "Заказать"]')
     locator_name_field = (By.XPATH, './/input[@placeholder="* Имя"]')
     locator_surname_field = (By.XPATH, './/input[@placeholder="* Фамилия"]')
@@ -28,6 +24,10 @@ class OrderPage(BasePage):
     locator_are_you_sure_yes_button = (By.XPATH, './/button[text() = "Да"]')
     locator_show_status_button = (By.XPATH, './/button[@class="Button_Button__ra12g Button_Middle__1CSJM" and text() = "Посмотреть статус"]')
     locator_metro_station_choice = (By.XPATH, './/div[@class="select-search__select"]')
+
+    def __init__(self, driver):
+        super().__init__(driver)
+        self.driver = driver
 
     @allure.step('Заполнить поле Имя')
     def fill_in_name_field(self, text):

@@ -5,8 +5,6 @@ import allure
 
 
 class BasePage:
-    def __init__(self, driver):
-        self.driver = driver
 
     locator_base_url = 'https://qa-scooter.praktikum-services.ru/'
     locator_order_page_url = 'https://qa-scooter.praktikum-services.ru/order'
@@ -16,6 +14,9 @@ class BasePage:
     locator_next_button = (By.XPATH, './/button[text() = "Далее"]')
     locator_page_order_button = (By.XPATH,
                                  './/button[@class="Button_Button__ra12g Button_Middle__1CSJM" and text() = "Заказать"]')
+
+    def __init__(self, driver):
+        self.driver = driver
 
     @allure.step('Открыть базовый url')
     def open_base_url(self):
@@ -31,7 +32,7 @@ class BasePage:
 
     @allure.step('Кликнуть на страницу или элемент')
     def click_page(self, locator):
-        return self.driver.find_element(*locator).click()
+        self.driver.find_element(*locator).click()
 
     @allure.step('Открыть блок Вопросы о важном')
     def open_important_info_block(self):

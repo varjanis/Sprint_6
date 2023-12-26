@@ -5,14 +5,14 @@ import allure
 
 class RedirectPage(BasePage):
 
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
-
     locator_scooter_logo = (By.XPATH, './/img[@alt="Scooter"]')
     locator_yandex_logo = (By.XPATH, './/img[@alt="Yandex"]')
     locator_logo_dzen = (By.XPATH, './/svg[@class="desktop-base-header__logoBrand-3W desktop-base-header__isMorda-mX"]')
     locator_dzen_find_button = (By.XPATH, './/button[@type="submit" and text() = "Найти"]')
+
+    def __init__(self, driver):
+        super().__init__(driver)
+        self.driver = driver
 
     @allure.step('Кликнуть на логотип Яндекса')
     def click_yandex_logo(self):

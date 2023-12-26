@@ -5,10 +5,6 @@ from pages.base_page import BasePage
 
 class InfoPage(BasePage):
 
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
-
     locator_question_how_much = (By.XPATH, './/div[text() = "Сколько это стоит? И как оплатить?"]')
     locator_answer_how_much = (By.XPATH, './/p[text()="Сутки — 400 рублей. Оплата курьеру — наличными или картой."]')
 
@@ -41,6 +37,10 @@ class InfoPage(BasePage):
 
     locator_question_beyond_mkad_delivery = (By.XPATH, './/div[@class="accordion__button" and text() = "Я жизу за МКАДом, привезёте?"]')
     locator_answer_beyond_mkad_delivery = (By.XPATH, './/p[text() = "Да, обязательно. Всем самокатов! И Москве, и Московской области."]')
+
+    def __init__(self, driver):
+        super().__init__(driver)
+        self.driver = driver
 
     @allure.step('Кликнуть на кнопку выпадающего меню, соответствующую вопросу')
     def click_dropdown_menu_button(self, *locator):
